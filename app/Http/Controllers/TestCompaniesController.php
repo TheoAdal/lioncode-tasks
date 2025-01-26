@@ -16,7 +16,13 @@ class TestCompaniesController extends Controller
     public function show(Request $request)
     {
         $companies = TestCompanies::all();
-        return response()->json($companies);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'ALL THE COMPANIESSS',
+            'data' => $companies,
+            'token' => $request->bearerToken(),
+        ], 200);
     }
 
     public function store(Request $request)

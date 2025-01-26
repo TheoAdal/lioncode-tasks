@@ -17,22 +17,14 @@ Route::get('/test', function () {
     return "<h1>" . $test .  "</h1>";
 });
 
-// Route::middleware('auth:sanctum')->get('/myaccount', function (Request $request) {
-//     $user = $request->user();
-//     // $token = $user->currentAccessToken()->plainTextToken;
-//     $token = session('api_token');
 
-//     return view('myaccount', ['user' => $user, 'token' => $token]);
-// })->name('myaccount');
 
 //Register Routes
 Route::get('/register', [RegisterUserController::class, 'register'])->name('register');
 Route::post('/register',[RegisterUserController::class, 'store'])->name('register.store');
 
-
+//Company Form Route
 Route::get('/companies',[TestCompaniesController::class, 'form'])->name('companies.form');
-Route::get('/getcompanies',[TestCompaniesController::class, 'show']);
-Route::post('/storecompanies',[TestCompaniesController::class, 'store'])->name('companies.store');
 
-//Login Routes
+//Login Route
 Route::get('/login', [LoginUserController::class, 'login'])->name('login');
