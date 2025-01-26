@@ -6,7 +6,7 @@
     <title>POST COMPANIES</title>
 </head>
 <body>
-    <h1>Register Page</h1>
+    <h1>COMPANY FORM PAGE</h1>
     <form action="{{ route('companies.store') }}" method="POST">
         @csrf
         <div>
