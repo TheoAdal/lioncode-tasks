@@ -15,7 +15,14 @@ class TestCompaniesController extends Controller
 
     public function show(Request $request)
     {
-        $companies = TestCompanies::all();
+        if(!$request->bearerToken()){
+            return response()->json([
+                'success' => false,
+                'message' => 'No token. ACCESS DENIED',
+            ], 401);
+        } 
+        else {
+            $companies = TestCompanies::all();
 
         return response()->json([
             'success' => true,
@@ -23,6 +30,7 @@ class TestCompaniesController extends Controller
             'data' => $companies,
             'token' => $request->bearerToken(),
         ], 200);
+        }
     }
 
     public function store(Request $request)
