@@ -23,19 +23,23 @@ class LoginUserController extends Controller
         $user = User::where('email', $credentials['email'])->first();
 
         if ($user && Hash::check($credentials['password'], $user->password)) {
-            // Create a new token for the user
+            // create token for user
             $token = $user->createToken('API Token')->plainTextToken;
 
-            return response()->json(['token' => $token]);
-        }
-
-        return response()->json(['message' => 'Invalid email or password'], 401);
+            return response()->json(['message'=>'Loggend in!!!!','token' => $token]);
+            // return view('myaccount');
+            
+        } else {
+            return response()->json('wrong eimail or passwrod', 401);
+            
+        } 
     }
 
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(['message' => 'Successfully logged out!!!!', 
+                                        'message2' => 'Token deleted']);
     }
 }
