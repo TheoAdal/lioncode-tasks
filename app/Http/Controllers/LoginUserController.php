@@ -15,24 +15,27 @@ class LoginUserController extends Controller
 
     public function store(Request $request)
     {
+        \Log::info('Login attempt', $request->all()); // Add this line for debugging
+    
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
+    
         $user = User::where('email', $credentials['email'])->first();
-
+    
         if ($user && Hash::check($credentials['password'], $user->password)) {
-            // create token for user
             $token = $user->createToken('API Token')->plainTextToken;
+            session(['api_token' => $token]);
 
-            return response()->json(['message'=>'Loggend in!!!!','token' => $token]);
-            // return view('myaccount');
+            auth()->login($user);
             
-        } else {
-            return response()->json('wrong eimail or passwrod', 401);
-            
-        } 
+            return redirect()->route('myaccount');
+        }
+    
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->withInput();
     }
 
     public function logout(Request $request)

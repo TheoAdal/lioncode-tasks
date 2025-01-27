@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     
+    
     use HasFactory, HasApiTokens,Notifiable;
 
     /**
@@ -19,6 +20,15 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_user', 
+                                                'user_id', 
+                                                'event_id');
+    }
+
+
     protected $fillable = [
         'name',
         'email',

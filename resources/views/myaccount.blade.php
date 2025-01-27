@@ -6,8 +6,18 @@
     <title>My Account</title>
 </head>
 <body>
-    <h1>MY ACCOUNT PAGE</h1>
-        <h2>Welcome to your account!</h2>
-        <p>Your API Token:</p>
+    <h1>My Account</h1>
+    
+    @if(session('api_token'))
+        <div>
+            <h3>Your API Token:</h3>
+            <code>{{ session('api_token') }}</code>
+        </div>
+    @endif
+
+    <div>
+        <h3>Welcome {{ auth()->user()->name }}</h3>
+        <!-- Other account information -->
+    </div>
 </body>
 </html>

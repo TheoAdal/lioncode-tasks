@@ -13,14 +13,21 @@
     <form method="POST" action="{{ route('login.store') }}">
         @csrf
         <label for="email">Email:</label>
-        <input type="email" id="email" required>
+        <input type="email" 
+               id="email" 
+               name="email" 
+               value="{{ old('email') }}"
+               required>
 
         @error('email')
             <div>{{ $message }}</div>
         @enderror
 
         <label for="password">Password:</label>
-        <input type="password" id="password" required>
+        <input type="password" 
+               id="password" 
+               name="password" 
+               required>
         @error('password')
             <div>{{ $message }}</div>
         @enderror
